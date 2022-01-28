@@ -12,8 +12,9 @@ class UserController extends Controller
 
     public function index()
     {
+        //LISTAR TODOS LOS USUARIOS DESDE LA TABLA(MODELO) IMPORTADA BOOKS
         $users = Book::all();
-        return $users;
+        return  response()->json($users, 202);
     }
 
 
@@ -23,12 +24,16 @@ class UserController extends Controller
         $var_2 = $request->porcentaje;
         $similar = array();
 
-        $resp = DB::select("SELECT nombre FROM books WHERE UPPER(nombre) LIKE UPPER('%$var_1%')");
+        //SE FILTRAN LAS PALABRAS ELIMINANDO ESPACIOS EN BLANCO
+        //SE UTILIZA BUSQUEDA EN MAYUSCULAS, PARA OBTENER RESULTADOS
+        //CON COINCIDENCIAS CERCANAS O IGUALES AL NOMBRE BUSCADO
+
+        $resp = DB::select("SELECT REPLACE( nombre , ' ', '') AS nombre_filtro, nombre FROM books WHERE UPPER(nombre) LIKE UPPER('%$var_1%')");
 
         foreach ($resp as $data) {
-
-            similar_text($var_1,  $data->nombre, $percent);
-
+            //SE CALCULA EL PORCENTAJE DE IGUALDAD
+            similar_text($var_1,  $data->nombre_filtro, $percent);
+            //SE VALIDA SI EL PORCENTAJE ES EL MINIMO REQUERIDO
             if ($percent >= $var_2)
 
                 array_push($similar,  [
@@ -37,6 +42,13 @@ class UserController extends Controller
                 ]);
         }
 
-        return response()->json($similar,200);
+        return response()->json($similar, 202);
     }
+
+
+    /* $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|min:6',
+        ]); */
 }
