@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 
 
@@ -18,13 +18,15 @@ class UserController extends Controller
     }
 
 
-    public function similarText(Request $request)
+    public function similarText(UserRequest $request)
     {
+
         $var_1 = $request->nombre;
         $var_2 = $request->porcentaje;
         $similar = array();
 
-        //SE FILTRAN LAS PALABRAS ELIMINANDO ESPACIOS EN BLANCO
+      
+
         //SE UTILIZA BUSQUEDA EN MAYUSCULAS, PARA OBTENER RESULTADOS
         //CON COINCIDENCIAS CERCANAS O IGUALES AL NOMBRE BUSCADO
 
@@ -32,6 +34,9 @@ class UserController extends Controller
 
         foreach ($resp as $data) {
             //SE CALCULA EL PORCENTAJE DE IGUALDAD
+            //FILTRANDO LAS PALABRAS Y ELIMINANDO ESPACIOS EN BLANCO
+            $var_1 = str_replace(' ', '', $var_1);
+
             similar_text($var_1,  $data->nombre_filtro, $percent);
             //SE VALIDA SI EL PORCENTAJE ES EL MINIMO REQUERIDO
             if ($percent >= $var_2)
@@ -46,9 +51,5 @@ class UserController extends Controller
     }
 
 
-    /* $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6',
-        ]); */
+
 }
