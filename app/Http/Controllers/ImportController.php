@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Imports\BooksImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -9,15 +11,12 @@ class ImportController extends Controller
 {
     public function import()
     {
-        Excel::load('books.csv', function($reader) {
-            foreach ($reader->get() as $book) {
-                Book::create([
-                    'name' => $book->title,
-                    'author' =>$book->author,
-                    'year' =>$book->publication_year
-                ]);
-            }
-        });
-        return Book::all();
+
+        Excel::import(new BooksImport, 'archivoDiccionario.csv');
+        Book::find(1)->delete();
+        echo 'IMPORTADO';
+        return;
+
+        
     }
 }

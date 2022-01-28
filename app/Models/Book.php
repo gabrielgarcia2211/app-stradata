@@ -10,7 +10,7 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = ["departamento","localidad","municipio",
-    "nombre","años_activo","tipo_persona","tipo cargo"];
+    "nombre","años_activo","tipo_persona","tipo_cargo"];
 
     
 }
