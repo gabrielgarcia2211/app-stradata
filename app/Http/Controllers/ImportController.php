@@ -12,11 +12,13 @@ class ImportController extends Controller
     public function import()
     {
 
-        Excel::import(new BooksImport, 'archivoDiccionario.csv');
-        Book::find(1)->delete();
-        echo 'IMPORTADO';
-        return;
+        if (Book::count() > 0) {
+            echo 'LISTO';
+        } else {
+            Excel::import(new BooksImport, 'archivoDiccionario.csv');
+            echo 'IMPORTADO';
+        }
 
-        
+        return;
     }
 }

@@ -6,20 +6,21 @@ use App\Models\Book;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class BooksImport implements ToModel, WithCustomCsvSettings
+class BooksImport implements ToModel, WithCustomCsvSettings, WithHeadingRow, WithChunkReading
 {
 
     public function model(array $row)
     {
         return new Book([
-            'departamento' => $row['0'],
-            'localidad' =>$row['1'],
-            'municipio' =>$row['2'],
-            'nombre' =>$row['3'],
-            'años_activo' =>$row['4'],
-            'tipo_persona' =>$row['5'],
-            'tipo_cargo' =>$row['6']
+            'departamento' => $row["departamento"],
+            'localidad' =>$row["localidad"],
+            'municipio' =>$row["municipio"],
+            'nombre' =>$row["nombre"],
+            'años_activo' =>$row["anos_activo"],
+            'tipo_persona' =>$row["tipo_persona"],
+            'tipo_cargo' =>$row["tipo_cargo"]
         ]);
 
     }
@@ -29,6 +30,16 @@ class BooksImport implements ToModel, WithCustomCsvSettings
         return [
             'delimiter' => ';'
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
+    }
+
+    public function headingRow(): int
+    {
+        return 1;
     }
 
 

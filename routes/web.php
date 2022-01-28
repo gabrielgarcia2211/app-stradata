@@ -19,4 +19,3 @@ Route::get('/', function () {
 });
 
 
-Route::get('import', [ImportController::class, 'import'])->name('user.import');
