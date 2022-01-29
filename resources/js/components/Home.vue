@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-4">
-        <div class="card" style="justify-content: center;">
+        <div class="card" style="justify-content: center">
             <div class="card-header bg-primary" style="color: white">
                 Buscador
             </div>
@@ -15,8 +15,9 @@
                                 type="text"
                                 class="form-control"
                                 id="nombre"
+                                v-model="data.nombre"
+                                name="nombre"
                                 aria-describedby="emailHelp"
-                                v-model="user.nombre"
                             />
                         </div>
                     </div>
@@ -29,7 +30,8 @@
                                 type="number"
                                 class="form-control"
                                 id="porcentaje"
-                                v-model="user.porcentaje"
+                                v-model="data.porcentaje"
+                                name="porcentaje"
                             />
                         </div>
                     </div>
@@ -39,31 +41,63 @@
                         </button>
                     </div>
                 </form>
+                <div v-if="users.length > 0">
+                    <div class="col-12 mb-2"></div>
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Tipo Persona</th>
+                                        <th>Tipo Cargo</th>
+                                        <th>Departamento</th>
+                                        <th>Municipio</th>
+                                        <th>% Coincidencia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="user in users" :key="user.id">
+                                        <td>{{ user.nombre }}</td>
+                                        <td>{{ user.tipo_persona }}</td>
+                                        <td>{{ user.tipo_cargo }}</td>
+                                        <td>{{ user.departamento }}</td>
+                                        <td>{{ user.municipio }}</td>
+                                        <td>{{ user.porcentaje }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
-
 <script>
 export default {
-    name:"filtrar-usuario",
-    data(){
+    name: "users",
+    data() {
         return {
-            user:{
-                nombre:"",
-                porcentaje:""
-            }
-        }
+            data: {
+                nombre: "",
+                porcentaje: "",
+            },
+            users: [],
+        };
     },
-    methods:{
-        async buscar(){
-            await this.axios.post('/api/blog',this.blog).then(response=>{
-                this.$router.push({name:"mostrarUsuario"})
-            }).catch(error=>{
-                console.log(error)
-            })
-        }
-    }
-}
+    methods: {
+        async buscar() {
+            await this.axios
+                .post("/api/similary", this.data)
+                .then((response) => {
+                    this.users = response.data.message;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
+};
 </script>

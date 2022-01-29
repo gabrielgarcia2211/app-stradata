@@ -28,8 +28,7 @@ class UserRequest extends FormRequest
         //ESTA FUNCION DEVUELVE LA LISTA DE ERRORES ECONTRADOS
         throw new HttpResponseException(response()->json([  
             'response'   => false,
-            'success'   => 'Validation Errors',
-            'data'      => $validator->errors()
+            'message'      => $validator->errors()
         ]));
     }
 }

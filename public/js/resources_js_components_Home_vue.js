@@ -77,14 +77,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "filtrar-usuario",
+  name: "users",
   data: function data() {
     return {
-      user: {
+      data: {
         nombre: "",
         porcentaje: ""
-      }
+      },
+      users: []
     };
   },
   methods: {
@@ -97,10 +128,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.axios.post('/api/blog', _this.blog).then(function (response) {
-                  _this.$router.push({
-                    name: "mostrarUsuario"
-                  });
+                return _this.axios.post("/api/similary", _this.data).then(function (response) {
+                  _this.users = response.data.message;
                 })["catch"](function (error) {
                   console.log(error);
                 });
@@ -1010,23 +1039,24 @@ var render = function () {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.user.nombre,
-                        expression: "user.nombre",
+                        value: _vm.data.nombre,
+                        expression: "data.nombre",
                       },
                     ],
                     staticClass: "form-control",
                     attrs: {
                       type: "text",
                       id: "nombre",
+                      name: "nombre",
                       "aria-describedby": "emailHelp",
                     },
-                    domProps: { value: _vm.user.nombre },
+                    domProps: { value: _vm.data.nombre },
                     on: {
                       input: function ($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.user, "nombre", $event.target.value)
+                        _vm.$set(_vm.data, "nombre", $event.target.value)
                       },
                     },
                   }),
@@ -1046,19 +1076,23 @@ var render = function () {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.user.porcentaje,
-                        expression: "user.porcentaje",
+                        value: _vm.data.porcentaje,
+                        expression: "data.porcentaje",
                       },
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "number", id: "porcentaje" },
-                    domProps: { value: _vm.user.porcentaje },
+                    attrs: {
+                      type: "number",
+                      id: "porcentaje",
+                      name: "porcentaje",
+                    },
+                    domProps: { value: _vm.data.porcentaje },
                     on: {
                       input: function ($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.user, "porcentaje", $event.target.value)
+                        _vm.$set(_vm.data, "porcentaje", $event.target.value)
                       },
                     },
                   }),
@@ -1068,6 +1102,40 @@ var render = function () {
               _vm._m(0),
             ]
           ),
+          _vm._v(" "),
+          _vm.users.length > 0
+            ? _c("div", [
+                _c("div", { staticClass: "col-12 mb-2" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c("table", { staticClass: "table table-bordered" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.users, function (user) {
+                          return _c("tr", { key: user.id }, [
+                            _c("td", [_vm._v(_vm._s(user.nombre))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.tipo_persona))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.tipo_cargo))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.departamento))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.municipio))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.porcentaje))]),
+                          ])
+                        }),
+                        0
+                      ),
+                    ]),
+                  ]),
+                ]),
+              ])
+            : _vm._e(),
         ]),
       ]
     ),
@@ -1084,6 +1152,26 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("\n                        Buscar\n                    ")]
       ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Persona")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Cargo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Departamento")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Municipio")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("% Coincidencia")]),
+      ]),
     ])
   },
 ]

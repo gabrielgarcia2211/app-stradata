@@ -31,7 +31,9 @@ class UserController extends Controller
             //CON COINCIDENCIAS CERCANAS O IGUALES AL NOMBRE BUSCADO
 
 
-            $resp = DB::select("SELECT REPLACE( nombre , ' ', '') AS nombre_filtro, nombre FROM books WHERE UPPER(nombre) LIKE UPPER('%$var_1%')");
+            $resp = DB::select("SELECT 
+            REPLACE( nombre , ' ', '') AS nombre_filtro, nombre, tipo_persona, tipo_cargo,departamento,municipio
+            FROM books WHERE UPPER(nombre) LIKE UPPER('%$var_1%')");
 
             foreach ($resp as $data) {
                 //SE CALCULA EL PORCENTAJE DE IGUALDAD
@@ -44,6 +46,10 @@ class UserController extends Controller
 
                     array_push($similar,  [
                         'nombre' => $data->nombre,
+                        'tipo_persona' => ucwords(strtolower($data->tipo_persona)),
+                        'tipo_cargo' => ucwords(strtolower($data->tipo_cargo)),
+                        'departamento' => ucwords(strtolower($data->departamento)),
+                        'municipio' => ucwords(strtolower($data->municipio)),
                         'porcentaje' => $percent
                     ]);
             }
@@ -52,15 +58,12 @@ class UserController extends Controller
                 'response' => true,
                 'message' => $similar
             ], 202);
-
-
         } catch (\Exception $e) {
 
             return response()->json([
                 'response' => false,
                 'message' => $e->getMessage(),
             ]);
-
         }
     }
 }
