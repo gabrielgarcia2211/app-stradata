@@ -26,9 +26,9 @@ class UserRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         //ESTA FUNCION DEVUELVE LA LISTA DE ERRORES ECONTRADOS
-        throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
+        throw new HttpResponseException(response()->json([  
+            'response'   => false,
+            'success'   => 'Validation Errors',
             'data'      => $validator->errors()
         ]));
     }
