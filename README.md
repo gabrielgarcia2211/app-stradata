@@ -78,13 +78,22 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
     ```sh
     http://127.0.0.1:8080/
     ```
-    
+## NOTA
+
+**Usuario de prueba**
+
+| Parameter  | Type     | Description                |
+| :--------  | :------- | :------------------------- |
+| `email`    | `gabriel@gmail.com` | **Required**               |
+| `password` | `12345678`          | **Required**               |
+
+
 ### Servicio Usuarios (JWT)
 
 - Registrar usuario
   | Metodo | Ruta     |
   |--------|----------|
-  | POST    | /register |
+  | POST    | api/auth/register |
 
     ```sh
   {
@@ -98,7 +107,7 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
 
   | Metodo | Ruta   |
   |--------|--------|
-  | POST   | /login |
+  | POST   | api/auth/login |
   
     ```sh
   {
@@ -110,7 +119,7 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
 - Cerra sesión
   | Metodo | Ruta    |
   |--------|---------|
-  | POST    | /logout |
+  | POST    | api/auth/logout |
   ```sh
   Authorization: Bearer <token>
   ``` 
@@ -160,11 +169,28 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
     "porcentaje" : 90
   }
   ``` 
-  
-  ## Autores
+  ## NOTA
+
+`PUEDES CREAR UN USUARIO DE PRUEBA A TRAVES DE POSTMAN, A LA SIGUIENTE RUTA`
+
+```http
+  POST https://stradata-app.herokuapp.com/api/auth/register
+```
+
+| Parameter  | Type     | Description                |
+| :--------  | :------- | :------------------------- |
+| `name`     | `string` | **Required**               |
+| `email`    | `string` | **Required**               |
+| `password` | `string` | **Required**               |
+
+
+## Autores
 
 - [@gabrielgarcia2211](https://github.com/gabrielgarcia2211)
 
+## Despliegue
+
+[![debug](https://img.icons8.com/color/0/heroku.png)](https://stradata-app.herokuapp.com/)
 
 ## Contribuyentes
 *¡Las contribuciones son siempre bienvenidas!*
@@ -172,5 +198,3 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
 ## Licencia
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-
-  
