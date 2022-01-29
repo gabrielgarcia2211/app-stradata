@@ -2141,19 +2141,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var Home = function Home() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Home_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Home.vue */ "./resources/js/components/Home.vue"));
-};
-
-var Contacto = function Contacto() {
-  return __webpack_require__.e(/*! import() */ "resources_js_components_Contacto_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Contacto.vue */ "./resources/js/components/Contacto.vue"));
 }; //importamos los componentes para los usuarios
 
 
 var Crear = function Crear() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_user_Crear_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/user/Crear.vue */ "./resources/js/components/user/Crear.vue"));
-};
-
-var Filtrar = function Filtrar() {
-  return __webpack_require__.e(/*! import() */ "resources_js_components_user_Filtrar_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/user/Filtrar.vue */ "./resources/js/components/user/Filtrar.vue"));
 };
 
 var Mostrar = function Mostrar() {
@@ -2165,17 +2157,9 @@ var routes = [{
   path: '/',
   component: Home
 }, {
-  name: 'contacto',
-  path: '/contacto',
-  component: Contacto
-}, {
   name: 'crearUsuario',
   path: '/crear-usuario',
   component: Crear
-}, {
-  name: 'filtrarUsuario',
-  path: '/filtrar',
-  component: Filtrar
 }, {
   name: 'mostrarUsuario',
   path: '/mostrar',
@@ -19689,16 +19673,126 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("main", [
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-lg navbar-dark bg-primary" },
+      [
+        _c("div", { staticClass: "container-fluid" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" },
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }, [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link active",
+                        attrs: {
+                          "exact-active-class": "active",
+                          to: "/",
+                          "aria-current": "page",
+                        },
+                      },
+                      [_vm._v("Inicio")]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          "exact-active-class": "active",
+                          to: "/mostrar",
+                        },
+                      },
+                      [_vm._v("Mostrar")]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          "exact-active-class": "active",
+                          to: "/contacto",
+                        },
+                      },
+                      [_vm._v("Contacto")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]),
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "container mt-5" }, [_c("router-view")], 1),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h3", [_vm._v("HOLA MUNDO! I")]),
+    return _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+      _c("img", {
+        attrs: {
+          src: "https://vuejs.org/images/logo.svg",
+          alt: "",
+          width: "30",
+          height: "24",
+        },
+      }),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "collapse",
+          "data-bs-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation",
+        },
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
   },
 ]
 render._withStripped = true
@@ -35154,7 +35248,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_Contacto_vue":1,"resources_js_components_user_Crear_vue":1,"resources_js_components_user_Filtrar_vue":1,"resources_js_components_user_Mostrar_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_user_Crear_vue":1,"resources_js_components_user_Mostrar_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
