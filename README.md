@@ -11,6 +11,7 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
 </p>
 
 
+
 ## Caracteristicas
 
 - Registro y Logeo de usuarios (JWT)
@@ -52,10 +53,22 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
     ```sh
     composer update
     ```
+    
+- Luego se debemos duplicar el archivo **.env.example** cambiamos el nombre a **.env**, y debemos configurar lo siguiente:
+    ```sh
+    DB_DATABASE = name_database
+    ```
+    ```sh
+    php artisan jwt:secret
+    ```
 
 - Se corre el proyecto a traves del siguiente comando(BACKEND):
     ```sh
     php artisan serve
+    ```
+- Luego se **Instala/Actualiza** las dependencias npm Vue.js a traves del siguiente comando(FRONTEND):
+    ```sh
+    npm update -g @vue/cli
     ```
 - Se corre el proyecto a traves del siguiente comando(FRONTEND):
     ```sh
@@ -159,7 +172,5 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
 ## Licencia
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-
-
 
   
