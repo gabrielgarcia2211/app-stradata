@@ -48,6 +48,7 @@ Route::group([
 ], function ($router) {
 
     Route::get('users', [UserController::class, 'index']);
-    Route::get('import', [ImportController::class, 'import']);//***
     Route::post('similary', [UserController::class, 'similarText']);//***
 });
+
+Route::get('import', [ImportController::class, 'import']);//***
