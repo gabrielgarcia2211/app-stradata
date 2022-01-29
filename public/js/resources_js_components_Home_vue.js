@@ -24,6 +24,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+var _name$name$data$metho;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -107,43 +111,81 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "users",
-  data: function data() {
-    return {
-      data: {
-        nombre: "",
-        porcentaje: ""
-      },
-      users: []
-    };
-  },
-  methods: {
-    buscar: function buscar() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _this.axios.post("/api/similary", _this.data).then(function (response) {
-                  _this.users = response.data.message;
-                })["catch"](function (error) {
-                  console.log(error);
-                });
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    }
-  }
+//
+//
+//
+//
+//
+// Call the dataTables jQuery plugin
+$(document).ready(function () {
+  $("#dataTable").DataTable();
 });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$name$data$metho = {
+  name: "users"
+}, _defineProperty(_name$name$data$metho, "name", "errores"), _defineProperty(_name$name$data$metho, "data", function data() {
+  return {
+    data: {
+      nombre: "",
+      porcentaje: ""
+    },
+    users: []
+  };
+}), _defineProperty(_name$name$data$metho, "methods", {
+  buscar: function buscar() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.axios.post("/api/similary", _this.data).then(function (response) {
+                if (response.data.message.length == 0) {
+                  _this.$swal({
+                    icon: "warning",
+                    title: "Opps...",
+                    text: "No hay Coincidencias Encontradas!"
+                  });
+
+                  _this.users = "";
+                } else {
+                  if (response.data.response) {
+                    _this.$swal({
+                      icon: "success",
+                      title: "Hecho",
+                      text: "Coincidencias Encontradas!"
+                    });
+
+                    _this.users = response.data.message;
+                  } else {
+                    var listError = "";
+                    _this.errores = response.data.message;
+
+                    for (var prop in _this.errores) {
+                      listError += "\n" + _this.errores[prop];
+                    }
+
+                    _this.$swal({
+                      icon: "error",
+                      title: "Opps..",
+                      text: listError
+                    });
+                  }
+                }
+              })["catch"](function (error) {
+                console.log(error);
+              });
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  }
+}), _name$name$data$metho);
 
 /***/ }),
 
@@ -1109,29 +1151,40 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-12" }, [
                   _c("div", { staticClass: "table-responsive" }, [
-                    _c("table", { staticClass: "table table-bordered" }, [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.users, function (user) {
-                          return _c("tr", { key: user.id }, [
-                            _c("td", [_vm._v(_vm._s(user.nombre))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.tipo_persona))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.tipo_cargo))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.departamento))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.municipio))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.porcentaje))]),
-                          ])
-                        }),
-                        0
-                      ),
-                    ]),
+                    _c(
+                      "table",
+                      {
+                        staticClass: "table table-bordered",
+                        attrs: {
+                          id: "dataTable",
+                          width: "100%",
+                          cellspacing: "0",
+                        },
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.users, function (user) {
+                            return _c("tr", { key: user.id }, [
+                              _c("td", [_vm._v(_vm._s(user.nombre))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.tipo_persona))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.tipo_cargo))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.departamento))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.municipio))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(user.porcentaje))]),
+                            ])
+                          }),
+                          0
+                        ),
+                      ]
+                    ),
                   ]),
                 ]),
               ])

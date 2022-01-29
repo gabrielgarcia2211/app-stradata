@@ -45,7 +45,12 @@
                     <div class="col-12 mb-2"></div>
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table
+                                class="table table-bordered"
+                                id="dataTable"
+                                width="100%"
+                                cellspacing="0"
+                            >
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -76,8 +81,13 @@
 </template>
 
 <script>
+// Call the dataTables jQuery plugin
+$(document).ready(function () {
+    $("#dataTable").DataTable();
+});
 export default {
     name: "users",
+    name: "errores",
     data() {
         return {
             data: {
@@ -92,7 +102,35 @@ export default {
             await this.axios
                 .post("/api/similary", this.data)
                 .then((response) => {
-                    this.users = response.data.message;
+                    if (response.data.message.length == 0) {
+                        this.$swal({
+                            icon: "warning",
+                            title: "Opps...",
+                            text: "No hay Coincidencias Encontradas!",
+                        });
+                        this.users = "";
+                    } else {
+                        if (response.data.response) {
+                            this.$swal({
+                                icon: "success",
+                                title: "Hecho",
+                                text: "Coincidencias Encontradas!",
+                            });
+                            this.users = response.data.message;
+                        } else {
+                            let listError = "";
+                            this.errores = response.data.message;
+                            for (var prop in this.errores) {
+                                listError += "\n" + this.errores[prop];
+                            }
+
+                            this.$swal({
+                                icon: "error",
+                                title: "Opps..",
+                                text: listError,
+                            });
+                        }
+                    }
                 })
                 .catch((error) => {
                     console.log(error);

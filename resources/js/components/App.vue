@@ -16,10 +16,7 @@
                     </li>
                     <li class="nav-item">
                         <router-link exact-active-class="active" to="/mostrar" class="nav-link">Mostrar</router-link>
-                    </li> 
-                    <li class="nav-item">
-                        <router-link exact-active-class="active" to="/contacto" class="nav-link">Contacto</router-link>
-                    </li>             
+                    </li>           
                 </ul>
                 </div>
             </div>
