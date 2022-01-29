@@ -1,4 +1,4 @@
-# FILTRAR TEXTO - APIREST
+# STRADATA - APIREST
 
 [![N|Solid](https://laravelvuespa.com/preview.png)](https://laravel.com)
 Esta aplicacion fue realizada en Laravel como framework de Backend con persistencia de datos en MySQL y Frontend Vue.js
@@ -32,7 +32,8 @@ Esta aplicacion fue realizada en Laravel como framework de Backend con persisten
 
 ## NOTA
 
-`PHP VERSION, DEBE SER >= 8.0 PARA EVITAR INCOMPATIBILIDAD CON COMPOSER, PARA TRABAJAR LAS SIGUIENTES RUTAS SE RECOMIENDA POSTMAN`
+`PHP VERSION, DEBE SER >= 8.0 PARA EVITAR INCOMPATIBILIDAD CON COMPOSER`
+`PARA TRABAJAR LAS SIGUIENTES RUTAS SE RECOMIENDA POSTMAN`
 
 
 
