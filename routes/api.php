@@ -37,7 +37,8 @@ Route::group([
 
 Route::group([
 
-    'middleware' => 'api',
+    'middleware' => 'jwt.verify',
+    
 
 ], function ($router) {
 

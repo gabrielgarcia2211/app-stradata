@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,7 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Laraveles\Spanish\SpanishServiceProvider::class,
 
     ],
 

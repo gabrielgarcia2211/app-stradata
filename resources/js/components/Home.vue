@@ -81,7 +81,6 @@
 </template>
 
 <script>
-
 export default {
     name: "users",
     name: "errores",
@@ -97,7 +96,11 @@ export default {
     methods: {
         async buscar() {
             await this.axios
-                .post("/api/similary", this.data)
+                .post("/api/similary", this.data, {
+                    headers: {
+                        Authorization: "Bearer" + localStorage.getItem("Token"),
+                    },
+                })
                 .then((response) => {
                     if (response.data.message.length == 0) {
                         this.$swal({
@@ -123,7 +126,7 @@ export default {
 
                             this.$swal({
                                 icon: "error",
-                                title: "Opps..",
+                                title: "Opps...",
                                 text: listError,
                             });
                         }
@@ -131,6 +134,11 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                    this.$swal({
+                        icon: "error",
+                        title: "Opps...",
+                        text: 'No esta Autorizado',
+                    });
                 });
         },
     },

@@ -40,6 +40,7 @@ export default {
                 .then((response) => {
                     console.log(response.data.access_token)
                     localStorage.setItem('Token', response.data.access_token)
+                    localStorage.setItem('Login', true)
                     window.location.href = '/mostrar'
                 })
                 .catch((error) => {
