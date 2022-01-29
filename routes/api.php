@@ -17,15 +17,17 @@ use App\Http\Controllers\ImportController;
 |
 */
 
+
+
 Route::group([
 
     'middleware' => 'api',
     'prefix' => 'auth'
 
 ], function ($router) {
-
-    Route::post('register', [AuthController::class, 'register']);
+    
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh',  [AuthController::class, 'refresh']);
     Route::post('me',  [AuthController::class, 'me']);
@@ -35,6 +37,7 @@ Route::group([
 
 Route::group([
 
+    'middleware' => 'api',
 
 ], function ($router) {
 
