@@ -2141,6 +2141,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2284,10 +2285,6 @@ var Home = function Home() {
 }; //importamos los componentes para los usuarios
 
 
-var Crear = function Crear() {
-  return __webpack_require__.e(/*! import() */ "resources_js_components_user_Crear_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/user/Crear.vue */ "./resources/js/components/user/Crear.vue"));
-};
-
 var Login = function Login() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_user_Login_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/user/Login.vue */ "./resources/js/components/user/Login.vue"));
 };
@@ -2300,10 +2297,6 @@ var routes = [{
   name: 'login',
   path: '/',
   component: Login
-}, {
-  name: 'crearUsuario',
-  path: '/crear-usuario',
-  component: Crear
 }];
 
 /***/ }),
@@ -36564,7 +36557,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_user_Crear_vue":1,"resources_js_components_user_Login_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Home_vue":1,"resources_js_components_user_Login_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

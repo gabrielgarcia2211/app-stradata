@@ -40,6 +40,15 @@
                             Buscar
                         </button>
                     </div>
+                    <div class="col mt-5">
+                        <button
+                            type="button"
+                            class="btn btn-warning"
+                            v-on:click="exportar"
+                        >
+                            Exportar
+                        </button>
+                    </div>
                 </form>
                 <div v-if="users.length > 0">
                     <div class="col-12 mb-2"></div>
@@ -91,6 +100,7 @@ export default {
                 porcentaje: "",
             },
             users: [],
+            lista_datas: [],
         };
     },
     methods: {
@@ -137,9 +147,41 @@ export default {
                     this.$swal({
                         icon: "error",
                         title: "Opps...",
-                        text: 'No esta Autorizado',
+                        text: "No esta Autorizado",
                     });
                 });
+        },
+
+        async exportar() {
+            if (this.users.length > 0) {
+                await this.axios
+                    .post("/api/export", this.users, {
+                        responseType: "arraybuffer",
+                    })
+                    .then((response) => {
+                        var fileURL = window.URL.createObjectURL(
+                            new Blob([response.data])
+                        );
+                        var fileLink = document.createElement("a");
+                        fileLink.href = fileURL;
+                        fileLink.setAttribute("download", "test.xlsx");
+                        document.body.appendChild(fileLink);
+                        fileLink.click();
+                    })
+                    .catch((error) => {
+                        this.$swal({
+                            icon: "error",
+                            title: "Opps..",
+                            text: error,
+                        });
+                    });
+            } else {
+                this.$swal({
+                    icon: "warning",
+                    title: "Opps",
+                    text: "Busqueda Vacia!",
+                });
+            }
         },
     },
 };

@@ -1,6 +1,7 @@
 require('./bootstrap');
 import vue from 'vue'
 import VueSweetalert2 from 'vue-sweetalert2'
+
 window.Vue = vue;
 
 // If you don't need the styles, do not connect

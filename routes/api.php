@@ -52,3 +52,4 @@ Route::group([
 });
 
 Route::get('import', [ImportController::class, 'import']);//***
+Route::post('export', [UserController::class, 'export']);//***

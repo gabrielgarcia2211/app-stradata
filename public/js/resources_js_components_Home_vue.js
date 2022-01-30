@@ -105,6 +105,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$name$data$metho = {
   name: "users"
 }, _defineProperty(_name$name$data$metho, "name", "errores"), _defineProperty(_name$name$data$metho, "data", function data() {
@@ -113,7 +122,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       nombre: "",
       porcentaje: ""
     },
-    users: []
+    users: [],
+    lista_datas: []
   };
 }), _defineProperty(_name$name$data$metho, "methods", {
   buscar: function buscar() {
@@ -168,7 +178,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.$swal({
                   icon: "error",
                   title: "Opps...",
-                  text: 'No esta Autorizado'
+                  text: "No esta Autorizado"
                 });
               });
 
@@ -178,6 +188,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee);
+    }))();
+  },
+  exportar: function exportar() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!(_this2.users.length > 0)) {
+                _context2.next = 5;
+                break;
+              }
+
+              _context2.next = 3;
+              return _this2.axios.post("/api/export", _this2.users, {
+                responseType: "arraybuffer"
+              }).then(function (response) {
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                var fileLink = document.createElement("a");
+                fileLink.href = fileURL;
+                fileLink.setAttribute("download", "test.xlsx");
+                document.body.appendChild(fileLink);
+                fileLink.click();
+              })["catch"](function (error) {
+                _this2.$swal({
+                  icon: "error",
+                  title: "Opps..",
+                  text: error
+                });
+              });
+
+            case 3:
+              _context2.next = 6;
+              break;
+
+            case 5:
+              _this2.$swal({
+                icon: "warning",
+                title: "Opps",
+                text: "Busqueda Vacia!"
+              });
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
     }))();
   }
 }), _name$name$data$metho);
@@ -369,6 +429,22 @@ var render = function () {
               ]),
               _vm._v(" "),
               _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "col mt-5" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-warning",
+                    attrs: { type: "button" },
+                    on: { click: _vm.exportar },
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Exportar\n                    "
+                    ),
+                  ]
+                ),
+              ]),
             ]
           ),
           _vm._v(" "),

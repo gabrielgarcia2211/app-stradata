@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Book;
+use App\Exports\UsersExport;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
 
 
 class UserController extends Controller
@@ -85,5 +88,11 @@ class UserController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+    }
+
+    public function export(Request $request)
+    {
+        $data = $request->all();
+        return Excel::download(new UsersExport($data), 'users.xlsx');
     }
 }
