@@ -48,54 +48,56 @@ class UserController extends Controller
         $var_1 = $request->nombre;
         $var_2 = $request->porcentaje;
         $similar = array();
+        $cont = 0;
+        $coincidencia = 0;
 
         try {
             //SE UTILIZA BUSQUEDA EN MAYUSCULAS, PARA OBTENER RESULTADOS
             //CON COINCIDENCIAS CERCANAS O IGUALES AL NOMBRE BUSCADO
 
 
-            $resp = DB::select("SELECT 
-            REPLACE( nombre , ' ', '') AS nombre_filtro, nombre, tipo_persona, tipo_cargo,departamento,municipio
-            FROM books");
+            $resp = DB::select("SELECT REPLACE( nombre , ' ', '') AS nombre_filtro, nombre, tipo_persona, tipo_cargo, departamento, municipio FROM books");
 
             foreach ($resp as $data) {
 
-                //SE CALCULA EL PORCENTAJE DE IGUALDAD
-                //FILTRANDO LAS PALABRAS Y ELIMINANDO ESPACIOS EN BLANCO
                 $var_1 = str_replace(' ', '', $var_1);
 
 
                 $str1 = strtolower($var_1);
-                $str2 =  strtolower($data->nombre_filtro);
+                $str2 = strtolower($data->nombre_filtro);
 
-                //similar_text($str1,  $str2, $percent);
+                $arr1 = str_split($str1);
+                $arr2 = str_split($str2);
 
+                $longText = strlen($str2)-1;
 
-                //POSICION DE COINCIDENCIA
-
-                $coincidencia = substr_compare($str2,  $str1, 0);
-                $porc = ($coincidencia * strlen($str2)) / strlen($str1);
-
-                $tot = - ($porc - 100);
-
-
-                if ($tot >= $var_2) {
-                    $coincidencia = strrpos($str2,  $str1);
-
-                    if ($coincidencia === 0) {
-                        //SE VALIDA SI EL PORCENTAJE ES EL MINIMO REQUERIDO
-
-
-                        array_push($similar,  [
-                            'nombre' => $data->nombre,
-                            'tipo_persona' => ucwords(strtolower($data->tipo_persona)),
-                            'tipo_cargo' => ucwords(strtolower($data->tipo_cargo)),
-                            'departamento' => $data->departamento,
-                            'municipio' => $data->municipio,
-                            'porcentaje' => $tot,
-                        ]);
+                for ($i = 0; $i <  $longText ; $i++) {
+                    $cont += ($coincidencia == 0) ? 1 : 1;
+                    if ($cont == strlen($str1)) {
+                        break;
+                    }
+                    if ($arr1[$i] == $arr2[$i]) {
+                        $coincidencia++;
                     }
                 }
+
+                $porc = ($coincidencia * 100) / strlen($str2);
+
+
+                if ($porc >= $var_2) {
+
+                    array_push($similar,  [
+                        'nombre' => $data->nombre,
+                        'tipo_persona' => ucwords(strtolower($data->tipo_persona)),
+                        'tipo_cargo' => ucwords(strtolower($data->tipo_cargo)),
+                        'departamento' => $data->departamento,
+                        'municipio' => $data->municipio,
+                        'porcentaje' => $porc,
+                    ]);
+                }
+
+                $cont = 0;
+                $coincidencia = 0;
             }
 
             return response()->json([
