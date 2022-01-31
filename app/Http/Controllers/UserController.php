@@ -59,35 +59,38 @@ class UserController extends Controller
             FROM books");
 
             foreach ($resp as $data) {
-                //SE CALCULA EL PORCENTAJE DE IGUALDAD
-                //FILTRANDO LAS PALABRAS Y ELIMINANDO ESPACIOS EN BLANCO
-                $var_1 = str_replace(' ', '', $var_1);
                 
-                /**/
+                    //SE CALCULA EL PORCENTAJE DE IGUALDAD
+                    //FILTRANDO LAS PALABRAS Y ELIMINANDO ESPACIOS EN BLANCO
+                    $var_1 = str_replace(' ', '', $var_1);
 
-                /** REGLA DE TRES */
-                $data = levenshtein($var_1,  $data->nombre_filtro);
+                    /**/
+
+                    /** REGLA DE TRES */
+                    $per = levenshtein($var_1,  $data->nombre_filtro);
 
 
-                $porc = ($data * 100)/strlen($var_1);
+                    $porc = ($per * 100)/strlen($var_1);
 
-                $tot = -($porc-100);
-                /**/
-                
-                
+                    $tot = -($porc-100);
+                    echo $tot;
+                    /**/
 
-                //similar_text($var_1,  $data->nombre_filtro, $percent);
-                //SE VALIDA SI EL PORCENTAJE ES EL MINIMO REQUERIDO
-                if ($tot >= $var_2)
 
-                    array_push($similar,  [
-                        'nombre' => $data->nombre,
-                        'tipo_persona' => ucwords(strtolower($data->tipo_persona)),
-                        'tipo_cargo' => ucwords(strtolower($data->tipo_cargo)),
-                        'departamento' => ucwords(strtolower($data->departamento)),
-                        'municipio' => ucwords(strtolower($data->municipio)),
-                        'porcentaje' => $percent
-                    ]);
+
+                    //similar_text($var_1,  $data->nombre_filtro, $percent);
+                    //SE VALIDA SI EL PORCENTAJE ES EL MINIMO REQUERIDO
+                    if ($tot >= $var_2){
+                        array_push($similar,  [
+                            'nombre' => $data->nombre,
+                            'tipo_persona' => ucwords(strtolower($data->tipo_persona)),
+                            'tipo_cargo' => ucwords(strtolower($data->tipo_cargo)),
+                            'departamento' => ucwords(strtolower($data->departamento)),
+                            'municipio' => ucwords(strtolower($data->municipio)),
+                            'porcentaje' => $per
+                        ]);
+                    }
+
             }
 
             return response()->json([
