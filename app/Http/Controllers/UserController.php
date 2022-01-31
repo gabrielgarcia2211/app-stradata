@@ -69,7 +69,7 @@ class UserController extends Controller
                 $data = levenshtein($var_1,  $data->nombre_filtro);
 
 
-                $porc = ($data * 100)/strlen($str1);
+                $porc = ($data * 100)/strlen($var_1);
 
                 $tot = -($porc-100);
                 /**/
