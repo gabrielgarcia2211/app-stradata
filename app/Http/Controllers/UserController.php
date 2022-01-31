@@ -56,16 +56,29 @@ class UserController extends Controller
 
             $resp = DB::select("SELECT 
             REPLACE( nombre , ' ', '') AS nombre_filtro, nombre, tipo_persona, tipo_cargo,departamento,municipio
-            FROM books WHERE UPPER(nombre) LIKE UPPER('%$var_1%')");
+            FROM books");
 
             foreach ($resp as $data) {
                 //SE CALCULA EL PORCENTAJE DE IGUALDAD
                 //FILTRANDO LAS PALABRAS Y ELIMINANDO ESPACIOS EN BLANCO
                 $var_1 = str_replace(' ', '', $var_1);
+                
+                /**/
 
-                similar_text($var_1,  $data->nombre_filtro, $percent);
+                /** REGLA DE TRES */
+                $data = levenshtein($var_1,  $data->nombre_filtro);
+
+
+                $porc = ($data * 100)/strlen($str1);
+
+                $tot = -($porc-100);
+                /**/
+                
+                
+
+                //similar_text($var_1,  $data->nombre_filtro, $percent);
                 //SE VALIDA SI EL PORCENTAJE ES EL MINIMO REQUERIDO
-                if ($percent >= $var_2)
+                if ($tot >= $var_2)
 
                     array_push($similar,  [
                         'nombre' => $data->nombre,
